@@ -1,11 +1,17 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import "./index.css";
 import DefaultLayout from "./layouts/DefaultLayout";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
     <DefaultLayout>
-      <div></div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+        </Routes>
+      </BrowserRouter>
     </DefaultLayout>
   );
 }

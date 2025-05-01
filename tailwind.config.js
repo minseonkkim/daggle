@@ -6,6 +6,11 @@ export default {
       md: "642px",
       lg: "1025px",
     },
+    extend: {
+      fontFamily: {
+        pretendard: ["Pretendard Variable", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 };
