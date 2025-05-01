@@ -66,7 +66,7 @@ export default function LoginPage() {
             placeholder="아이디를 입력해주세요."
             value={loginId}
             onChange={(e) => setLoginId(e.target.value)}
-            className={`border px-[16px] py-[12px] w-full mb-1 rounded-[8px] ${
+            className={`font-pretendard border px-[16px] py-[12px] w-full mb-1 rounded-[8px] ${
               loginIdError ? "border-red-500 border-[2px]" : ""
             }`}
           />
@@ -81,7 +81,7 @@ export default function LoginPage() {
             placeholder="비밀번호를 입력해주세요."
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className={`border px-[16px] py-[12px] w-full mt-2 mb-1 rounded-[8px] ${
+            className={`font-pretendard border px-[16px] py-[12px] w-full mt-2 mb-1 rounded-[8px] ${
               passwordError ? "border-red-500 border-[2px]" : ""
             }`}
           />

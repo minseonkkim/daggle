@@ -4,6 +4,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../stores/authStore";
 import { useEffect, useRef, useState } from "react";
+import { IoClose } from "react-icons/io5";
 
 export default function Header() {
   const location = useLocation();
@@ -11,6 +12,7 @@ export default function Header() {
   const isHome = location.pathname === "/";
   const { isLoggedIn, user, logout } = useAuthStore();
   const [showPopover, setShowPopover] = useState(false);
+  const [showSheet, setShowSheet] = useState(false);
 
   const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -55,7 +57,7 @@ export default function Header() {
             {showPopover && (
               <div
                 ref={popoverRef}
-                className="absolute right-0 mt-10 w-40 bg-white rounded-[12px] shadow-[4px_4px_10px_rgba(120,120,120,0.25)] px-[24px] py-[20px] z-50"
+                className="font-pretendard absolute right-0 mt-10 w-40 bg-white rounded-[12px] shadow-[4px_4px_10px_rgba(120,120,120,0.25)] px-[24px] py-[20px] z-50"
               >
                 <p className="text-sm font-semibold mb-1">
                   {user?.nickname ? user?.nickname + "님" : "?님"}
@@ -77,13 +79,61 @@ export default function Header() {
             )}
           </div>
         ) : (
-          <div className="font-semibold cursor-pointer">로그인</div>
+          <div className="font-pretendard font-semibold cursor-pointer ">
+            로그인
+          </div>
         )}
       </div>
 
       <div className="flex sm:flex md:hidden items-center justify-between h-14 px-4 bg-white">
-        <RxHamburgerMenu size={23} />
+        <RxHamburgerMenu
+          size={23}
+          className="cursor-pointer"
+          onClick={() => setShowSheet(true)}
+        />
       </div>
+
+      {showSheet && (
+        <div className="fixed inset-0 z-50">
+          <div
+            className="fixed inset-0 bg-black opacity-70"
+            onClick={() => setShowSheet(false)}
+          />
+          <div className="fixed top-0 left-0 w-72 h-full bg-white shadow-lg p-4 z-50 animate-slide-in">
+            <div className="flex justify-end mb-4">
+              <IoClose
+                size={24}
+                className="cursor-pointer text-[#A7A9B4]"
+                onClick={() => setShowSheet(false)}
+              />
+            </div>
+            <p className="font-pretendard text-lg font-semibold mb-6">
+              {user?.nickname ? user?.nickname + "님" : "?님"}
+            </p>
+            <hr />
+            <div className="font-pretendard space-y-4 mt-6">
+              {isLoggedIn ? (
+                <div
+                  className="cursor-pointer"
+                  onClick={() => {
+                    if (confirm("정말 로그아웃하시겠습니까?")) {
+                      alert("로그아웃되었습니다.");
+                      logout();
+                      setShowPopover(false);
+                      navigate("/login");
+                    }
+                  }}
+                >
+                  로그아웃
+                </div>
+              ) : (
+                <div className="cursor-pointer">로그인</div>
+              )}
+              <div className="cursor-pointer">커뮤니티</div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
