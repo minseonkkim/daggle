@@ -5,18 +5,20 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import { useAuthStore } from "./stores/authStore";
 
-function RootRedirect() {
-  const { isLoggedIn } = useAuthStore();
-  return <Navigate to={isLoggedIn ? "/" : "/login"} replace />;
-}
-
 function App() {
+  const { isLoggedIn } = useAuthStore();
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="*" element={<RootRedirect />} />
+        <Route
+          path="/"
+          element={isLoggedIn ? <HomePage /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/login"
+          element={!isLoggedIn ? <LoginPage /> : <Navigate to="/" replace />}
+        />
       </Routes>
     </BrowserRouter>
   );
