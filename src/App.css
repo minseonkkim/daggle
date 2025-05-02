@@ -1,3 +1,8 @@
 .group:hover .pause-on-hover {
   animation-play-state: paused;
 }
+
+.no-side-border {
+  border-left: none;
+  border-right: none;
+}
