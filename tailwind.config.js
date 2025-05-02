@@ -10,6 +10,15 @@ export default {
       fontFamily: {
         pretendard: ["Pretendard Variable", "sans-serif"],
       },
+      keyframes: {
+        scrollX: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+      },
+      animation: {
+        scrollX: "scrollX 20s linear infinite",
+      },
     },
   },
   plugins: [],

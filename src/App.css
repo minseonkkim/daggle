@@ -1,0 +1,3 @@
+.group:hover .pause-on-hover {
+  animation-play-state: paused;
+}
