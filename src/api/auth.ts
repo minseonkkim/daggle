@@ -1,3 +1,5 @@
+import axiosInstance from "./api";
+
 export interface LoginRequest {
   loginId: string;
   password: string;
@@ -19,19 +21,19 @@ export interface LoginResponse {
   };
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+export interface RefreshResponse {
+  accessToken: string;
+  refreshToken: string;
+}
 
 export async function loginApi(data: LoginRequest): Promise<LoginResponse> {
-  const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
+  const res = await axiosInstance.post("/api/auth/login", data);
+  return res.data;
+}
 
-  if (!res.ok) {
-    const message = await res.text();
-    throw new Error(message || "로그인 실패");
-  }
-
-  return res.json();
+export async function refreshTokenApi(
+  refreshToken: string
+): Promise<RefreshResponse> {
+  const res = await axiosInstance.post("/api/auth/refresh", { refreshToken });
+  return res.data;
 }
