@@ -4,6 +4,7 @@ import "./index.css";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import { useAuthStore } from "./stores/authStore";
+import PostDetail from "./pages/PostDetail";
 
 function App() {
   const { isLoggedIn } = useAuthStore();
@@ -18,6 +19,12 @@ function App() {
         <Route
           path="/login"
           element={!isLoggedIn ? <LoginPage /> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="/posts/:id"
+          element={
+            isLoggedIn ? <PostDetail /> : <Navigate to="/login" replace />
+          }
         />
       </Routes>
     </BrowserRouter>

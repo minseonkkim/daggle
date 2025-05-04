@@ -129,7 +129,14 @@ export default function Header() {
               ) : (
                 <div className="cursor-pointer">로그인</div>
               )}
-              <div className="cursor-pointer">커뮤니티</div>
+              <div
+                className="cursor-pointer"
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                커뮤니티
+              </div>
             </div>
           </div>
         </div>

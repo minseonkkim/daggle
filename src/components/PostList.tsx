@@ -5,6 +5,7 @@ import { TfiCommentAlt } from "react-icons/tfi";
 import { FiEdit2 } from "react-icons/fi";
 import { formatDate } from "../utils/date";
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
+import { useNavigate } from "react-router-dom";
 
 function useIsMdUp() {
   const [isMdUp, setIsMdUp] = useState(false);
@@ -28,6 +29,12 @@ export default function PostList() {
   const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const limit = 10;
+
+  const navigate = useNavigate();
+
+  const handleClick = (postId: string) => {
+    navigate(`/posts/${postId}`);
+  };
 
   const fetchPosts = async (pageNum: number) => {
     setLoading(true);
@@ -104,6 +111,7 @@ export default function PostList() {
                     key={post.id}
                     className="cursor-pointer"
                     ref={isLast ? lastPostRef : undefined}
+                    onClick={() => handleClick(post.id)}
                   >
                     <td className="py-3.5 md:px-[24px] border-b w-full">
                       <div className="truncate font-semibold md:font-normal text-[16px] md:text-[18px]">
@@ -154,7 +162,6 @@ export default function PostList() {
               <button
                 type="button"
                 key={i + 1}
-                onClick={() => setPage(i + 1)}
                 className={`px-3 py-1 rounded ${
                   page === i + 1 ? "bg-gray-200 font-bold" : "hover:bg-gray-100"
                 }`}
