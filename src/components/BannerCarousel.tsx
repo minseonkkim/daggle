@@ -34,7 +34,6 @@ const bannerList = [
 export default function BannerCarousel() {
   return (
     <>
-      {" "}
       <div className="overflow-hidden group cursor-pointer mb-[40px]">
         <div className="flex w-max animate-scrollX pause-on-hover whitespace-nowrap">
           {[...bannerList, ...bannerList].map((item, idx) => (
