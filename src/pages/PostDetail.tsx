@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { TfiCommentAlt } from "react-icons/tfi";
 import { getPostById } from "../api/post";
-import { formatFullDate } from "../utils/date";
+import { formatDate, formatFullDate } from "../utils/date";
+import { getCommentsByPostId } from "../api/comment";
 
 export interface PostDetail {
   id: string;
@@ -27,9 +28,21 @@ export interface Author {
   nickname: string;
 }
 
+export interface Comment {
+  id: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    id: string;
+    nickname: string;
+  };
+}
+
 export default function PostDetail() {
   const { id } = useParams<{ id: string }>();
   const [post, setPost] = useState<PostDetail | null>(null);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -39,6 +52,14 @@ export default function PostDetail() {
       .then((data) => setPost(data))
       .catch((err) => setError(err.message));
   }, [id]);
+
+  useEffect(() => {
+    if (!post?.id) return;
+
+    getCommentsByPostId(post.id)
+      .then((data) => setComments(data))
+      .catch((err) => console.error("댓글 로딩 실패:", err));
+  }, [post?.id]);
 
   if (error) return <p className="text-red-500">{error}</p>;
   if (!post) return <p>로딩 중...</p>;
@@ -74,22 +95,24 @@ export default function PostDetail() {
             </div>
           </div>
           <hr />
-          <div className="sm:px-[16px] flex flex-col bg-gray-100 gap-[16px] py-[16px] md:py-[24px] md:px-[24px]">
-            <div className="flex flex-row justify-between">
-              <div className="text-gray-900">향기는 영원하리1234</div>
-              <div className="flex flex-row items-center gap-2 text-gray-500">
-                <button>수정</button>
-                <button>삭제</button>
+          {comments.map((comment) => (
+            <div
+              key={comment.id}
+              className="sm:px-[16px] flex flex-col bg-gray-100 gap-[16px] py-[16px] md:py-[24px] md:px-[24px]"
+            >
+              <div className="flex flex-row justify-between">
+                <div className="text-gray-900">{comment.user.nickname}</div>
+                <div className="flex flex-row items-center gap-2 text-gray-500">
+                  <button>수정</button>
+                  <button>삭제</button>
+                </div>
+              </div>
+              <div className="text-gray-800">{comment.content}</div>
+              <div className="text-gray-500">
+                {formatDate(comment.createdAt)}
               </div>
             </div>
-            <div className="text-gray-800">
-              내용이 들어갑니다.내용이 들어갑니다.내용이 들어갑니다.내용이
-              들어갑니다.내용이 들어갑니다.내용이 들어갑니다.내용이
-              들어갑니다.내용이 들어갑니다.내용이 들어갑니다.내용이
-              들어갑니다.내용이 들어갑니다.내용이 들어갑니다.내용이 들어갑니다.
-            </div>
-            <div className="text-gray-500">24.06.12</div>
-          </div>
+          ))}
           <hr />
           <div
             className="bg-white md:p-[24px] flex flex-row md:gap-[12px] sm:p-[16px]
