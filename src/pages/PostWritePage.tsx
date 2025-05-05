@@ -3,6 +3,7 @@ import DefaultLayout from "../layouts/DefaultLayout";
 import { useAuthStore } from "../stores/authStore";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { createPost, getPostById, updatePostById } from "../apis/post";
+import { IoIosArrowBack } from "react-icons/io";
 
 export default function PostWritePage() {
   const { id } = useParams<{ id: string }>();
@@ -81,15 +82,32 @@ export default function PostWritePage() {
   };
 
   return (
-    <DefaultLayout>
+    <DefaultLayout headerType="desktopOnly">
       <form
         onSubmit={handleSubmit}
         className="font-pretendard flex flex-col items-center w-full"
       >
-        <div className="flex flex-col bg-white w-full md:p-[24px] gap-[24px] md:rounded-[12px] my-6 md:border-[1px] border-gray-200 overflow-hidden">
-          <h1 className="font-bold text-[20px]">게시글 작성</h1>
-
-          <div className="flex flex-col">
+        <div className="flex flex-col bg-white w-full md:p-[24px] gap-[24px] md:rounded-[12px] md:my-6 md:border-[1px] border-gray-200 overflow-hidden">
+          <h1 className="hidden md:block font-bold text-[20px]">게시글 작성</h1>
+          <div className="fixed inset-0 block md:hidden w-full h-[56px] p-[16px] bg-white flex flex-row justify-between items-center">
+            <div className="flex flex-row items-center gap-2">
+              <IoIosArrowBack
+                size={20}
+                className="cursor-pointer"
+                onClick={() => navigate(-1)}
+              />
+              <p className="font-bold text-[16px] text-gray-900">게시물 작성</p>
+            </div>
+            <button
+              className="font-bold text-[16px] text-gray-900 disabled:text-[#D6D7DC]"
+              disabled={isDisabled}
+              type="submit"
+              onClick={handleSubmit}
+            >
+              등록
+            </button>
+          </div>
+          <div className="flex flex-col mt-[56px] md:mt-0">
             <input
               name="title"
               value={title}
@@ -139,7 +157,7 @@ export default function PostWritePage() {
           disabled={isDisabled}
           type="submit"
           onClick={handleSubmit}
-          className="text-white bg-gray-900 hover:bg-gray-800 active:bg-gray-700 disabled:bg-[#D6D7DC] font-semibold w-[200px] h-[59px] rounded-[12px]"
+          className="hidden md:block text-white bg-gray-900 hover:bg-gray-800 active:bg-gray-700 disabled:bg-[#D6D7DC] font-semibold w-[200px] h-[59px] rounded-[12px]"
         >
           등록하기
         </button>

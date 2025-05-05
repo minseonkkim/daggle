@@ -88,13 +88,13 @@ export default function PostList() {
           </button>
         </div>
 
-        <table className="w-full table-fixed md:border-t md:border-b border-gray-200 text-left text-[18px]">
+        <table className="w-full md:border-t md:border-b border-gray-200 text-left text-[18px]">
           {isMdUp ? (
             <colgroup>
-              <col style={{ width: "70%" }} />
-              <col style={{ width: "10%" }} />
-              <col style={{ width: "10%" }} />
-              <col style={{ width: "10%" }} />
+              <col style={{ width: "85%" }} />
+              <col style={{ width: "5%" }} />
+              <col style={{ width: "5%" }} />
+              <col style={{ width: "5%" }} />
             </colgroup>
           ) : (
             <colgroup>
@@ -130,7 +130,7 @@ export default function PostList() {
                             {post.commentCount}
                           </span>
                         </div>
-                        <div>닉네임</div>
+                        {/* <div>닉네임</div> */}
                       </div>
                     </td>
                     <td className="hidden md:table-cell py-3.5 px-[24px] border-b text-gray-500">
@@ -143,7 +143,7 @@ export default function PostList() {
                       </div>
                     </td>
                     <td className="hidden md:table-cell py-3.5 px-[24px] border-b text-gray-500">
-                      사진
+                      <div className="w-[24px] h-[24px] bg-gray-500 rounded-full"></div>
                     </td>
                   </tr>
                 );
@@ -188,7 +188,7 @@ export default function PostList() {
       </div>
 
       <button
-        className="md:hidden fixed bottom-6 right-6 bg-[#6025E1] text-white w-[56px] h-[56px] rounded-full shadow-lg z-40"
+        className="md:hidden fixed bottom-6 right-6 bg-[#6025E1] text-white w-[56px] h-[56px] rounded-full shadow-lg flex items-center justify-center z-40"
         aria-label="글쓰기"
         onClick={() => navigate("/posts/new")}
       >

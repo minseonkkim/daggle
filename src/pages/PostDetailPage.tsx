@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import Header from "../components/Header";
 import { TfiCommentAlt } from "react-icons/tfi";
 import { deletePostById, getPostById } from "../apis/post";
 import { formatDate, formatFullDate } from "../utils/date";
@@ -13,6 +12,8 @@ import {
 import { PostDetail } from "../types/post";
 import { Comment } from "../types/comment";
 import { useAuthStore } from "../stores/authStore";
+import DesktopOnlyHeader from "../components/DesktopOnlyHeader";
+import { IoIosArrowBack } from "react-icons/io";
 
 export default function PostDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -76,6 +77,7 @@ export default function PostDetailPage() {
         setEditingCommentId(null);
         setScrollToCommentId(editingCommentId);
         window.alert("댓글이 수정되었습니다.");
+        setNewComment("");
       } else {
         const created = await createComment(post.id, { content: newComment });
         setNewComment("");
@@ -134,16 +136,23 @@ export default function PostDetailPage() {
 
   return (
     <div className="md:bg-gray-100 min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-grow lg:px-[120px] md:px-[30px]">
-        <div className="font-pretendard bg-white md:rounded-[12px] my-6 md:border-[1px] border-gray-200 overflow-hidden">
-          <div className="sm:px-[16px] md:p-[24px] flex flex-col gap-[16px] md:gap-[24px]">
+      <DesktopOnlyHeader />
+      <main className="flex-grow lg:px-[120px] md:px-[30px] md:mt-[86px]">
+        <div className="font-pretendard bg-white md:rounded-[12px] md:mt-6 mb-[100px] md:mb-6 md:border-[1px] border-gray-200 overflow-hidden ">
+          <div className="fixed inset-0 block md:hidden w-full h-[56px] p-[16px] bg-white">
+            <IoIosArrowBack
+              size={20}
+              className="cursor-pointer"
+              onClick={() => navigate(-1)}
+            />
+          </div>
+          <div className="sm:px-[16px] md:p-[24px] flex flex-col gap-[16px] md:gap-[24px] mt-[56px] md:mt-0">
             <h1 className="text-[24px] font-bold text-gray-900">
               {post.title}
             </h1>
             <div className="flex flex-row justify-between">
               <p className="text-gray-500">
-                {post.author.nickname}&nbsp;&nbsp;|&nbsp;&nbsp;
+                {post.author.nickname || "?"}&nbsp;&nbsp;|&nbsp;&nbsp;
                 {formatFullDate(post.createdAt)}
               </p>
               {userId === post.author.id && (
@@ -174,7 +183,12 @@ export default function PostDetailPage() {
               className="sm:px-[16px] flex flex-col bg-gray-100 gap-[16px] py-[16px] md:py-[24px] md:px-[24px]"
             >
               <div className="flex flex-row justify-between">
-                <div className="text-gray-900">{comment.user.nickname}</div>
+                <div className="flex flex-row items-center gap-2">
+                  <div className="rounded-full w-5 h-5 bg-gray-500"></div>
+                  <div className="text-gray-900">
+                    {comment.user.nickname || "?"}
+                  </div>
+                </div>
                 {userId === comment.user.id && (
                   <div className="flex flex-row items-center gap-2 text-gray-500">
                     <button onClick={() => startEditing(comment)}>수정</button>

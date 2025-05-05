@@ -31,19 +31,19 @@ export default function Header() {
 
   return (
     <>
-      <div className="hidden sm:hidden md:flex items-center justify-between p-4 h-[86px] lg:px-[120px] md:px-[30px] border-b border-gray-200 shadow-[0_10px_10px_-8px_#e8e8e8] bg-white">
+      <div className="fixed inset-0 hidden sm:hidden md:flex items-center justify-between p-4 h-[86px] lg:px-[120px] md:px-[30px] border-b border-gray-200 shadow-[0_10px_10px_-8px_#e8e8e8] bg-white z-[200]">
         {isHome ? (
           <img
             src={Logo}
             alt="로고"
-            className="w-auto h-[26px] block cursor-pointer "
+            className="w-auto h-[24px] block cursor-pointer "
           />
         ) : (
           <Link to="/">
             <img
               src={Logo}
               alt="로고"
-              className="w-auto h-[26px] block cursor-pointer cursor-pointer"
+              className="w-auto h-[24px] block cursor-pointer cursor-pointer"
             />
           </Link>
         )}
@@ -59,9 +59,12 @@ export default function Header() {
                 ref={popoverRef}
                 className="font-pretendard absolute right-0 mt-10 w-40 bg-white rounded-[12px] shadow-[4px_4px_10px_rgba(120,120,120,0.25)] px-[24px] py-[20px] z-50"
               >
-                <p className="text-sm font-semibold mb-1">
-                  {user?.nickname ? user?.nickname + "님" : "?님"}
-                </p>
+                <div className="flex flex-row items-center gap-2 mb-1">
+                  <div className="w-4 h-4 bg-gray-500 rounded-full"></div>
+                  <p className="text-sm font-semibold">
+                    {user?.nickname ? user?.nickname + "님" : "?님"}
+                  </p>
+                </div>
                 <button
                   className="text-xs text-red-500 mt-2"
                   onClick={() => {
