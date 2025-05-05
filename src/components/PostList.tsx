@@ -77,8 +77,8 @@ export default function PostList() {
         <div className="flex flex-row items-center justify-between mb-4 md:pt-[24px] md:px-[24px]">
           <div className="font-bold text-[24px]">게시판</div>
           <button
-            style={{ backgroundColor: "#6025E1" }}
-            className="hidden md:block text-white px-4 py-2.5 rounded-[8px] font-bold"
+            className="hidden md:block text-white bg-[#6025E1] hover:bg-[#5522C3] active:bg-[#320397] disabled:bg-[#D6D7DC] w-[84px] h-[48px] rounded-[8px] font-bold text-[16px]"
+            onClick={() => navigate("/posts/new")}
           >
             글쓰기
           </button>
@@ -186,6 +186,7 @@ export default function PostList() {
       <button
         className="md:hidden fixed bottom-6 right-6 bg-[#6025E1] text-white p-[16px] rounded-full shadow-lg z-40"
         aria-label="글쓰기"
+        onClick={() => navigate("/posts/new")}
       >
         <FiEdit2 size={20} />
       </button>
