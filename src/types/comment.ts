@@ -8,3 +8,11 @@ export interface Comment {
     nickname: string;
   };
 }
+
+export interface CreateCommentRequest {
+  content: string;
+}
+
+export interface UpdateCommentRequest {
+  content: string;
+}
