@@ -20,6 +20,28 @@ export interface PostsResponse {
   };
 }
 
+export interface Author {
+  loginId: string;
+  profileImageUrl: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
+  id: string;
+  nickname: string;
+}
+
+export interface PostDetail {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  title: string;
+  viewCount: number;
+  commentCount: number;
+  isAuthor: boolean;
+  content: string;
+  author: Author;
+}
+
 export const getPosts = async (
   page: number,
   limit: number
@@ -27,5 +49,10 @@ export const getPosts = async (
   const response = await axiosInstance.get<PostsResponse>("/api/posts", {
     params: { page, limit },
   });
+  return response.data;
+};
+
+export const getPostById = async (id: string): Promise<PostDetail> => {
+  const response = await axiosInstance.get<PostDetail>(`/api/posts/${id}`);
   return response.data;
 };

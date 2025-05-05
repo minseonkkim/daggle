@@ -1,38 +1,76 @@
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { TfiCommentAlt } from "react-icons/tfi";
+import { getPostById } from "../api/post";
+import { formatFullDate } from "../utils/date";
+
+export interface PostDetail {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  title: string;
+  viewCount: number;
+  commentCount: number;
+  isAuthor: boolean;
+  content: string;
+  author: Author;
+}
+
+export interface Author {
+  loginId: string;
+  profileImageUrl: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
+  id: string;
+  nickname: string;
+}
 
 export default function PostDetail() {
-  //   const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>();
+  const [post, setPost] = useState<PostDetail | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!id) return;
+
+    getPostById(id)
+      .then((data) => setPost(data))
+      .catch((err) => setError(err.message));
+  }, [id]);
+
+  if (error) return <p className="text-red-500">{error}</p>;
+  if (!post) return <p>로딩 중...</p>;
 
   return (
     <div className="md:bg-gray-100 min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow lg:px-[120px] md:px-[30px]">
-        {/* <p>게시글 ID: {id}</p> */}
-        <div className="font-pretendard bg-white rounded-[12px] my-6 md:border-[1px] border-gray-200 overflow-hidden">
+        <div className="font-pretendard bg-white md:rounded-[12px] my-6 md:border-[1px] border-gray-200 overflow-hidden">
           <div className="sm:px-[16px] md:p-[24px] flex flex-col gap-[16px] md:gap-[24px]">
             <h1 className="text-[24px] font-bold text-gray-900">
-              제목을 입력해주세요.
+              {post.title}
             </h1>
             <div className="flex flex-row justify-between">
               <p className="text-gray-500">
-                멋진무지개1&nbsp;&nbsp;|&nbsp;&nbsp;2024.06.12
+                {post.author.nickname}&nbsp;&nbsp;|&nbsp;&nbsp;
+                {formatFullDate(post.createdAt)}
               </p>
-              <div className="flex flex-row items-center gap-2">
-                <button>수정</button>
-                <button>삭제</button>
-              </div>
+              {post.isAuthor ?? (
+                <div className="flex flex-row items-center gap-2">
+                  <button>수정</button>
+                  <button>삭제</button>
+                </div>
+              )}
             </div>
           </div>
           <hr className="hidden md:block" />
           <div className="sm:px-[16px] my-[16px] md:my-0 md:p-[24px] flex flex-col justify-between h-[210px] md:h-[261px] text-gray-800">
-            <p>
-              본문자리입니다.본문자리입니다.본문자리입니다.본문자리입니다.본문자리입니다.본문자리입니다.본문자리입니다.본문자리입니다.본문자리입니다.본문자리입니다.본문자리입니다.본문자리입니다.본문자리입니다.본문자리입니다.본문자리입니다.본문자리입니다.본문자리입니다.본문자리입니다.
-            </p>
+            <p>{post.content}</p>
             <div className="flex flex-row items-center gap-2 text-gray-800">
               <TfiCommentAlt />
-              <span>1개</span>
+              <span>{post.commentCount}개</span>
             </div>
           </div>
           <hr />
@@ -54,7 +92,7 @@ export default function PostDetail() {
           </div>
           <hr />
           <div
-            className="bg-white md:p-[24px] flex flex-row gap-[12px] sm:p-[16px]
+            className="bg-white md:p-[24px] flex flex-row md:gap-[12px] sm:p-[16px]
                     sm:fixed sm:bottom-0 sm:left-0 sm:w-full
                     md:static md:w-auto"
           >
