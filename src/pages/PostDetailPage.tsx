@@ -2,44 +2,13 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { TfiCommentAlt } from "react-icons/tfi";
-import { getPostById } from "../api/post";
+import { getPostById } from "../apis/post";
 import { formatDate, formatFullDate } from "../utils/date";
-import { getCommentsByPostId } from "../api/comment";
+import { getCommentsByPostId } from "../apis/comment";
+import { PostDetail } from "../types/post";
+import { Comment } from "../types/comment";
 
-export interface PostDetail {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-  title: string;
-  viewCount: number;
-  commentCount: number;
-  isAuthor: boolean;
-  content: string;
-  author: Author;
-}
-
-export interface Author {
-  loginId: string;
-  profileImageUrl: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string;
-  id: string;
-  nickname: string;
-}
-
-export interface Comment {
-  id: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  user: {
-    id: string;
-    nickname: string;
-  };
-}
-
-export default function PostDetail() {
+export default function PostDetailPage() {
   const { id } = useParams<{ id: string }>();
   const [post, setPost] = useState<PostDetail | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);

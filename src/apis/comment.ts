@@ -1,15 +1,5 @@
+import { Comment } from "../types/comment";
 import axiosInstance from "./api";
-
-export interface Comment {
-  id: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  user: {
-    id: string;
-    nickname: string;
-  };
-}
 
 export const getCommentsByPostId = async (
   postId: string

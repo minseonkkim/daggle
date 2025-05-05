@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { getPosts, Post } from "../api/post";
+import { getPosts } from "../apis/post";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { TfiCommentAlt } from "react-icons/tfi";
 import { FiEdit2 } from "react-icons/fi";
 import { formatDate } from "../utils/date";
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 import { useNavigate } from "react-router-dom";
+import { Post } from "../types/post";
 
 function useIsMdUp() {
   const [isMdUp, setIsMdUp] = useState(false);

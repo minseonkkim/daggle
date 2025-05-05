@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { loginApi } from "../api/auth";
+import { loginApi } from "../apis/auth";
 import { useAuthStore } from "../stores/authStore";
 import { useNavigate, Navigate } from "react-router-dom";
 import DefaultLayout from "../layouts/DefaultLayout";
