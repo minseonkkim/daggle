@@ -14,6 +14,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/posts/:id" element={<PostDetailPage />} />
         <Route path="/posts/new" element={<PostWritePage />} />
+        <Route path="/posts/edit/:id" element={<PostWritePage />} />
       </Routes>
     </BrowserRouter>
   );

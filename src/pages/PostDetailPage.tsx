@@ -1,8 +1,8 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
 import { TfiCommentAlt } from "react-icons/tfi";
-import { getPostById } from "../apis/post";
+import { deletePostById, getPostById } from "../apis/post";
 import { formatDate, formatFullDate } from "../utils/date";
 import {
   createComment,
@@ -30,6 +30,8 @@ export default function PostDetailPage() {
   );
 
   const { isLoggedIn } = useAuthStore();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (scrollToCommentId) {
@@ -116,6 +118,20 @@ export default function PostDetailPage() {
     }
   };
 
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm("정말 이 게시글을 삭제하시겠습니까?");
+    if (!confirmDelete || !post?.id) return;
+
+    try {
+      await deletePostById(post.id);
+      alert("게시글이 삭제되었습니다.");
+      navigate("/");
+    } catch (err: any) {
+      console.error("게시글 삭제 실패:", err.message);
+      alert("게시글 삭제에 실패했습니다.");
+    }
+  };
+
   return (
     <div className="md:bg-gray-100 min-h-screen flex flex-col">
       <Header />
@@ -130,10 +146,12 @@ export default function PostDetailPage() {
                 {post.author.nickname}&nbsp;&nbsp;|&nbsp;&nbsp;
                 {formatFullDate(post.createdAt)}
               </p>
-              {post.isAuthor ?? (
+              {userId === post.author.id && (
                 <div className="flex flex-row items-center gap-2">
-                  <button>수정</button>
-                  <button>삭제</button>
+                  <button onClick={() => navigate(`/posts/edit/${post.id}`)}>
+                    수정
+                  </button>
+                  <button onClick={handleDelete}>삭제</button>
                 </div>
               )}
             </div>
@@ -157,15 +175,13 @@ export default function PostDetailPage() {
             >
               <div className="flex flex-row justify-between">
                 <div className="text-gray-900">{comment.user.nickname}</div>
-                {userId === comment.user.id ? (
+                {userId === comment.user.id && (
                   <div className="flex flex-row items-center gap-2 text-gray-500">
                     <button onClick={() => startEditing(comment)}>수정</button>
                     <button onClick={() => handleDeleteComment(comment.id)}>
                       삭제
                     </button>
                   </div>
-                ) : (
-                  <div></div>
                 )}
               </div>
               <div className="text-gray-800">{comment.content}</div>
@@ -174,7 +190,8 @@ export default function PostDetailPage() {
               </div>
             </div>
           ))}
-          <hr />
+          {comments.length !== 0 && <hr />}
+
           <div
             className="bg-white md:p-[24px] flex flex-row md:gap-[12px] sm:p-[16px]
                     sm:fixed sm:bottom-0 sm:left-0 sm:w-full

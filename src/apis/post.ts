@@ -1,4 +1,9 @@
-import { PostDetail, PostsResponse } from "../types/post";
+import {
+  CreatePostRequest,
+  PostDetail,
+  PostsResponse,
+  UpdatePostRequest,
+} from "../types/post";
 import axiosInstance from "./api";
 
 export const getPosts = async (
@@ -14,4 +19,26 @@ export const getPosts = async (
 export const getPostById = async (id: string): Promise<PostDetail> => {
   const response = await axiosInstance.get<PostDetail>(`/api/posts/${id}`);
   return response.data;
+};
+
+export const createPost = async (
+  data: CreatePostRequest
+): Promise<PostDetail> => {
+  const response = await axiosInstance.post<PostDetail>("/api/posts", data);
+  return response.data;
+};
+
+export const updatePostById = async (
+  id: string,
+  data: UpdatePostRequest
+): Promise<PostDetail> => {
+  const response = await axiosInstance.patch<PostDetail>(
+    `/api/posts/${id}`,
+    data
+  );
+  return response.data;
+};
+
+export const deletePostById = async (id: string): Promise<void> => {
+  await axiosInstance.delete(`/api/posts/${id}`);
 };
