@@ -69,7 +69,6 @@ export default function Header() {
                       alert("로그아웃되었습니다.");
                       logout();
                       setShowPopover(false);
-                      navigate("/login");
                     }
                   }}
                 >
@@ -79,7 +78,10 @@ export default function Header() {
             )}
           </div>
         ) : (
-          <div className="font-pretendard font-semibold cursor-pointer ">
+          <div
+            className="font-pretendard font-semibold cursor-pointer "
+            onClick={() => navigate("/login")}
+          >
             로그인
           </div>
         )}
@@ -107,10 +109,15 @@ export default function Header() {
                 onClick={() => setShowSheet(false)}
               />
             </div>
-            <p className="font-pretendard text-lg font-semibold mb-6">
-              {user?.nickname ? user?.nickname + "님" : "?님"}
-            </p>
-            <hr />
+            {isLoggedIn && (
+              <div>
+                <p className="font-pretendard text-lg font-semibold mb-6">
+                  {user?.nickname ? user?.nickname + "님" : "?님"}
+                </p>
+                <hr />
+              </div>
+            )}
+
             <div className="font-pretendard space-y-4 mt-6">
               {isLoggedIn ? (
                 <div
@@ -120,14 +127,18 @@ export default function Header() {
                       alert("로그아웃되었습니다.");
                       logout();
                       setShowPopover(false);
-                      navigate("/login");
                     }
                   }}
                 >
                   로그아웃
                 </div>
               ) : (
-                <div className="cursor-pointer">로그인</div>
+                <div
+                  className="cursor-pointer"
+                  onClick={() => navigate("/login")}
+                >
+                  로그인
+                </div>
               )}
               <div
                 className="cursor-pointer"

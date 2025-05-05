@@ -29,6 +29,8 @@ export default function PostDetailPage() {
     null
   );
 
+  const { isLoggedIn } = useAuthStore();
+
   useEffect(() => {
     if (scrollToCommentId) {
       const ref = commentRefs.current[scrollToCommentId];
@@ -182,12 +184,13 @@ export default function PostDetailPage() {
               ref={inputRef}
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
-              className="flex-grow placeholder-gray-500 p-[12px] border-b border-gray-300 focus:outline-none focus:border-gray-500"
+              className="flex-grow text-[14px] md:text-[16px] placeholder-gray-500 p-[12px] border-b border-gray-300 focus:outline-none focus:border-gray-500"
               placeholder="댓글을 통해 자유롭게 의견을 나눠보세요"
             />
             <button
               onClick={handleSubmitComment}
-              className="bg-black text-white text-[18px] px-[24px] py-[16px] rounded-[12px] font-semibold"
+              className="text-[16px] md:text-[18px] w-[84px] h-[48px] md:w-[89px] md:h-[52px] bg-gray-900 hover:bg-gray-800 active:bg-gray-700 disabled:bg-[#D6D7DC] text-white text-[18px] rounded-[12px] font-semibold"
+              disabled={!isLoggedIn}
             >
               {editingCommentId ? "수정" : "등록"}
             </button>
