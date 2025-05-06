@@ -55,13 +55,16 @@ export default function PostDetailPage() {
   useEffect(() => {
     if (!post?.id) return;
 
-    getCommentsByPostId(post.id)
-      .then((data) => setComments(data))
-      .catch((err) => console.error("댓글 로딩 실패:", err));
+    getCommentsByPostId(post.id).then((data) => setComments(data));
   }, [post?.id]);
 
   if (error) return <p className="text-red-500">{error}</p>;
-  if (!post) return <p>로딩 중...</p>;
+  if (!post)
+    return (
+      <p className="w-full h-screen flex items-center justify-center">
+        로딩 중...
+      </p>
+    );
 
   const handleSubmitComment = async () => {
     if (!post?.id || newComment.trim() === "") return;
@@ -91,7 +94,6 @@ export default function PostDetailPage() {
           ? "댓글 수정에 실패했습니다."
           : "댓글 등록에 실패했습니다."
       );
-      console.error(err.message);
     }
   };
 
@@ -115,7 +117,6 @@ export default function PostDetailPage() {
       setComments((prev) => prev.filter((c) => c.id !== commentId));
       window.alert("댓글이 삭제되었습니다.");
     } catch (err: any) {
-      console.error("댓글 삭제 실패:", err.message);
       window.alert("댓글 삭제에 실패했습니다.");
     }
   };
@@ -127,9 +128,8 @@ export default function PostDetailPage() {
     try {
       await deletePostById(post.id);
       alert("게시글이 삭제되었습니다.");
-      navigate("/");
+      navigate("/home");
     } catch (err: any) {
-      console.error("게시글 삭제 실패:", err.message);
       alert("게시글 삭제에 실패했습니다.");
     }
   };

@@ -30,10 +30,8 @@ axiosInstance.interceptors.response.use(
         const refreshed = await refreshTokenApi(refreshToken);
         login(user!, refreshed.accessToken, refreshed.refreshToken);
         originalRequest.headers.Authorization = `Bearer ${refreshed.accessToken}`;
-        console.log("✅ 토큰 재발급 성공");
         return axiosInstance(originalRequest);
       } catch (err) {
-        console.error("❌ 토큰 갱신 실패", err);
         logout();
         window.location.href = "/login";
       }

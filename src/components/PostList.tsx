@@ -42,7 +42,6 @@ export default function PostList() {
     setLoading(true);
     try {
       const data = await getPosts(pageNum, limit);
-      console.log(data);
       if (isMdUp) {
         setPosts(data.items);
       } else {
@@ -51,7 +50,6 @@ export default function PostList() {
       setTotalPages(data.meta.totalPages);
       setHasMore(pageNum < data.meta.totalPages);
     } catch (error) {
-      console.error("게시글 조회 실패", error);
     } finally {
       setLoading(false);
       isFetchingRef.current = false;

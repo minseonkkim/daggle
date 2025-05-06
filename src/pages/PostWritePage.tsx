@@ -18,7 +18,7 @@ export default function PostWritePage() {
   const navigate = useNavigate();
 
   if (!isLoggedIn) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/home" replace />;
   }
 
   const isEditMode = !!id;
@@ -72,7 +72,6 @@ export default function PostWritePage() {
           alert("게시글이 등록되었습니다.");
           navigate(`/posts/${post.id}`);
         } catch (err: any) {
-          console.error("게시글 생성 실패:", err.message);
           alert("게시글 생성에 실패했습니다.");
         }
       }

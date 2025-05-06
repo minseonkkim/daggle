@@ -18,7 +18,7 @@ export default function DesktopOnlyHeader() {
   const isMdUp = useIsMdUp();
   const location = useLocation();
   const navigate = useNavigate();
-  const isHome = location.pathname === "/";
+  const isHome = location.pathname === "/home";
   const { isLoggedIn, user, logout } = useAuthStore();
   const [showPopover, setShowPopover] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -47,7 +47,7 @@ export default function DesktopOnlyHeader() {
           className="w-auto h-[24px] block cursor-pointer"
         />
       ) : (
-        <Link to="/">
+        <Link to="/home">
           <img
             src={Logo}
             alt="로고"

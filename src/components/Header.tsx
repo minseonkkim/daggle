@@ -9,7 +9,7 @@ import { IoClose } from "react-icons/io5";
 export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
-  const isHome = location.pathname === "/";
+  const isHome = location.pathname === "/home";
   const { isLoggedIn, user, logout } = useAuthStore();
   const [showPopover, setShowPopover] = useState(false);
   const [showSheet, setShowSheet] = useState(false);
@@ -39,7 +39,7 @@ export default function Header() {
             className="w-auto h-[24px] block cursor-pointer "
           />
         ) : (
-          <Link to="/">
+          <Link to="/home">
             <img
               src={Logo}
               alt="로고"
@@ -146,7 +146,7 @@ export default function Header() {
               <div
                 className="cursor-pointer"
                 onClick={() => {
-                  navigate("/");
+                  navigate("/home");
                 }}
               >
                 커뮤니티

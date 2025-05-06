@@ -15,7 +15,7 @@ export default function LoginPage() {
   const { login, isLoggedIn } = useAuthStore();
 
   if (isLoggedIn) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/home" replace />;
   }
 
   const handleLogin = async () => {
@@ -39,11 +39,9 @@ export default function LoginPage() {
 
     try {
       const res = await loginApi({ loginId, password });
-      console.log("✅ 로그인 성공:", res);
       login(res.user, res.tokens.accessToken, res.tokens.refreshToken);
-      navigate("/");
+      navigate("/home");
     } catch (err: any) {
-      console.error("❌ 로그인 실패:", err);
       alert("로그인에 실패했습니다. 다시 시도해주세요.");
     }
   };
