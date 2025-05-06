@@ -147,7 +147,7 @@ export default function PostDetailPage() {
             />
           </div>
           <div className="sm:px-[16px] md:p-[24px] flex flex-col gap-[16px] md:gap-[24px] mt-[56px] md:mt-0">
-            <h1 className="text-[24px] font-bold text-gray-900">
+            <h1 className="text-[24px] font-bold text-gray-900 break-words">
               {post.title}
             </h1>
             <div className="flex flex-row justify-between">

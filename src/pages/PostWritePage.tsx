@@ -107,7 +107,7 @@ export default function PostWritePage() {
               등록
             </button>
           </div>
-          <div className="flex flex-col mt-[56px] md:mt-0">
+          <div className="flex flex-col">
             <input
               name="title"
               value={title}

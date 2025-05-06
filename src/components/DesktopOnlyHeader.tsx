@@ -5,9 +5,9 @@ import { useAuthStore } from "../stores/authStore";
 import { useEffect, useRef, useState } from "react";
 
 function useIsMdUp() {
-  const [isMdUp, setIsMdUp] = useState(window.innerWidth >= 768);
+  const [isMdUp, setIsMdUp] = useState(window.innerWidth >= 642);
   useEffect(() => {
-    const onResize = () => setIsMdUp(window.innerWidth >= 768);
+    const onResize = () => setIsMdUp(window.innerWidth >= 642);
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);

@@ -31,7 +31,7 @@ export default function Header() {
 
   return (
     <>
-      <div className="fixed inset-0 hidden sm:hidden md:flex items-center justify-between p-4 h-[86px] lg:px-[120px] md:px-[30px] border-b border-gray-200 shadow-[0_10px_10px_-8px_#e8e8e8] bg-white z-[200]">
+      <div className="fixed inset-0 hidden sm:hidden md:flex items-center justify-between p-4 h-[86px] lg:px-[120px] md:px-[30px] border-b border-gray-200 shadow-[0_10px_10px_-8px_#e8e8e8] bg-white z-[100000000]">
         {isHome ? (
           <img
             src={Logo}
@@ -90,7 +90,7 @@ export default function Header() {
         )}
       </div>
 
-      <div className="flex sm:flex md:hidden items-center justify-between h-14 px-4 bg-white">
+      <div className="fixed inset-0 h-[56px] flex sm:flex md:hidden items-center justify-between h-14 px-4 bg-white z-[100000000]">
         <RxHamburgerMenu
           size={23}
           className="cursor-pointer"
@@ -99,7 +99,7 @@ export default function Header() {
       </div>
 
       {showSheet && (
-        <div className="fixed inset-0 z-50">
+        <div className="fixed inset-0 z-[500000000]">
           <div
             className="fixed inset-0 bg-black opacity-70"
             onClick={() => setShowSheet(false)}

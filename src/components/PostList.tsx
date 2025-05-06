@@ -62,6 +62,11 @@ export default function PostList() {
     fetchPosts(page);
   }, [page, isMdUp]);
 
+  useEffect(() => {
+    setPosts([]);
+    setPage(1);
+  }, [isMdUp]);
+
   const isFetchingRef = useRef(false);
 
   const loadMore = () => {
@@ -87,20 +92,7 @@ export default function PostList() {
             글쓰기
           </button>
         </div>
-
         <table className="w-full md:border-t md:border-b border-gray-200 text-left text-[18px]">
-          {isMdUp ? (
-            <colgroup>
-              <col style={{ width: "85%" }} />
-              <col style={{ width: "5%" }} />
-              <col style={{ width: "5%" }} />
-              <col style={{ width: "5%" }} />
-            </colgroup>
-          ) : (
-            <colgroup>
-              <col style={{ width: "100%" }} />
-            </colgroup>
-          )}
           <tbody>
             {loading && posts.length === 0 ? (
               <tr>
@@ -118,10 +110,11 @@ export default function PostList() {
                     ref={isLast ? lastPostRef : undefined}
                     onClick={() => handleClick(post.id)}
                   >
-                    <td className="py-3.5 md:px-[24px] border-b w-full">
-                      <div className="truncate font-semibold md:font-normal text-[16px] md:text-[18px]">
+                    <td className="max-w-[450px] md:max-w-[300px] lg:max-w-[600px] py-3.5 md:px-[24px] border-b w-full overflow-hidden">
+                      <div className="truncate font-semibold md:font-normal text-[16px] md:text-[18px] overflow-hidden whitespace-nowrap w-full">
                         {post.title}
                       </div>
+
                       <div className="md:hidden text-[14px] flex justify-between items-center text-gray-500 mt-2">
                         <div className="flex flex-row items-center gap-2">
                           <span>{formatDate(post.createdAt)}</span>
@@ -151,7 +144,6 @@ export default function PostList() {
             )}
           </tbody>
         </table>
-
         {isMdUp && (
           <div className="mt-6 px-[24px] pb-[24px] hidden md:flex justify-center items-center space-x-2 text-sm">
             <button
