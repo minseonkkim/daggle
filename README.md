@@ -1,54 +1,50 @@
-# React + TypeScript + Vite
+## 프로젝트 설명
+게시판 기능이 포함된 반응형 웹 애플리케이션입니다. 사용자는 로그인 후 게시글과 댓글을 작성하고, 수정·삭제할 수 있습니다.
+사용자 경험을 높이기 위해 무한 스크롤, 입력 유효성 검사 등도 함께 구현했습니다.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+배포 주소: https://daggle-mu.vercel.app
 
-Currently, two official plugins are available:
+## 사용 기술
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=Typescript&logoColor=white"> <img src="https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=TailwindCSS&logoColor=white"> <img src="https://img.shields.io/badge/zustand-000000?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white">
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 폴더 구조
+```
+│  App.css
+│  App.tsx
+│  index.css
+│  main.tsx
+│  vite-env.d.ts
+├─apis
+│      api.ts
+│      auth.ts
+│      comment.ts
+│      post.ts
+├─assets
+├─components
+│      Banner.tsx
+│      BannerCarousel.tsx
+│      DesktopOnlyHeader.tsx
+│      Header.tsx
+│      PostList.tsx
+├─hooks
+│      useInfiniteScroll.ts
+├─layouts
+│      DefaultLayout.tsx
+├─pages
+│      HomePage.tsx
+│      LoginPage.tsx
+│      PostDetailPage.tsx
+│      PostWritePage.tsx
+├─stores
+│      authStore.ts
+├─types
+│      auth.ts
+│      comment.ts
+│      post.ts
+└─utils
+        date.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 전달 사항
+회원가입 id: minseon1234 <br/>
+회원가입 pwd: minseon1234
