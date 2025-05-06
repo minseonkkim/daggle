@@ -36,8 +36,7 @@ export default function PostWritePage() {
 
   const isUnchanged =
     isEditMode && title === initialTitle && content === initialContent;
-  const isEmpty = !title.trim() || !content.trim();
-  const isDisabled = isEmpty || isUnchanged;
+  const isDisabled = isUnchanged;
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -87,7 +86,9 @@ export default function PostWritePage() {
         className="font-pretendard flex flex-col items-center w-full"
       >
         <div className="flex flex-col bg-white w-full md:p-[24px] gap-[24px] md:rounded-[12px] md:my-6 md:border-[1px] border-gray-200 overflow-hidden">
-          <h1 className="hidden md:block font-bold text-[20px]">게시글 작성</h1>
+          <h1 className="hidden md:block font-bold text-[20px]">
+            게시글 {isEditMode ? "수정" : "작성"}
+          </h1>
           <div className="fixed inset-0 block md:hidden w-full h-[56px] p-[16px] bg-white flex flex-row justify-between items-center">
             <div className="flex flex-row items-center gap-2">
               <IoIosArrowBack
@@ -95,7 +96,9 @@ export default function PostWritePage() {
                 className="cursor-pointer"
                 onClick={() => navigate(-1)}
               />
-              <p className="font-bold text-[16px] text-gray-900">게시물 작성</p>
+              <p className="font-bold text-[16px] text-gray-900">
+                게시글 {isEditMode ? "수정" : "작성"}
+              </p>
             </div>
             <button
               className="font-bold text-[16px] text-gray-900 disabled:text-[#D6D7DC]"
@@ -158,7 +161,7 @@ export default function PostWritePage() {
           onClick={handleSubmit}
           className="hidden md:block text-white bg-gray-900 hover:bg-gray-800 active:bg-gray-700 disabled:bg-[#D6D7DC] font-semibold w-[200px] h-[59px] rounded-[12px]"
         >
-          등록하기
+          {isEditMode ? "수정하기" : "등록하기"}
         </button>
       </form>
     </DefaultLayout>

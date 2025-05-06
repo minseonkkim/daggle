@@ -152,7 +152,8 @@ export default function PostDetailPage() {
             </h1>
             <div className="flex flex-row justify-between">
               <p className="text-gray-500">
-                {post.author.nickname || "?"}&nbsp;&nbsp;|&nbsp;&nbsp;
+                {post.author.nickname || "(닉네임 없음)"}
+                &nbsp;&nbsp;|&nbsp;&nbsp;
                 {formatFullDate(post.createdAt)}
               </p>
               {userId === post.author.id && (
@@ -186,7 +187,7 @@ export default function PostDetailPage() {
                 <div className="flex flex-row items-center gap-2">
                   <div className="rounded-full w-5 h-5 bg-gray-500"></div>
                   <div className="text-gray-900">
-                    {comment.user.nickname || "?"}
+                    {comment.user.nickname || "(닉네임 없음)"}
                   </div>
                 </div>
                 {userId === comment.user.id && (

@@ -35,6 +35,10 @@ export default function PostList() {
   const navigate = useNavigate();
 
   const handleClick = (postId: string) => {
+    if (!isLoggedIn) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
     navigate(`/posts/${postId}`);
   };
 

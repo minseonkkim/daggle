@@ -70,7 +70,7 @@ export default function DesktopOnlyHeader() {
               <div className="flex flex-row items-center gap-2 mb-1">
                 <div className="w-4 h-4 bg-gray-500 rounded-full"></div>
                 <p className="text-sm font-semibold">
-                  {user?.nickname ? user?.nickname + "님" : "?님"}
+                  {user?.nickname ? user?.nickname + "님" : "(닉네임 없음)님"}
                 </p>
               </div>
               <button
